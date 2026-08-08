@@ -10,7 +10,7 @@ export default function Countries({ }: Props): ReactElement {
 
     const [countries, setCountries] = useState([]);
     const getCountries = () => {
-        axios.get(API_ENDPOINTS.COUNTRIES_ALL)
+        axios.get(API_ENDPOINTS.COUNTRIES_ALL_MOCK, { headers: { 'Authorization': 'Bearer token' } })
             .then((response) => {
                 setCountries(response.data)
             })
@@ -22,7 +22,7 @@ export default function Countries({ }: Props): ReactElement {
 
     return (
         <div>
-            {countries.map(c => <p key={c}>{c}</p>)}
+            {countries?.map(c => <p key={c}>{c}</p>)}
         </div>
     )
 }
