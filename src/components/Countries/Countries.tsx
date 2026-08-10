@@ -28,10 +28,10 @@ export default function Countries({ }: Props): ReactElement {
         getCountries()
     }, [])
 
-    const filteredCountries = () => {
+    const filteredCountries = (): Country[] => {
         if (!countryInput.trim()) return countries;
 
-        return countries.filter((country) => 'name' in country ? country.name === countryInput : country.names.common === countryInput)
+        return countries.filter((country) => 'name' in country ? country.name.toLowerCase().includes(countryInput.toLowerCase()) : country.names.common.toLowerCase().includes(countryInput.toLowerCase()))
     }
 
     return (
@@ -48,7 +48,7 @@ export default function Countries({ }: Props): ReactElement {
                 </form>
             </div>
             <div className='countries'>
-                {countries?.map((c, index) => <CountryItem key={index} country={c} />)}
+                {filteredCountries()?.map((c, index) => <CountryItem key={index} country={c} />)}
             </div>
 
         </div>
