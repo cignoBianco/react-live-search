@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function Countries({ }: Props): ReactElement {
-
+    const [countryInput, setCountryInput] = useState<string>('');
     const [countries, setCountries] = useState<Country[]>([]);
     const getCountries = () => {
         axios.get(API_ENDPOINTS.COUNTRIES_ALL_MOCK, { headers: { 'Authorization': 'Bearer token' } })
@@ -28,6 +28,12 @@ export default function Countries({ }: Props): ReactElement {
         getCountries()
     }, [])
 
+    const filteredCountries = () => {
+        if (!countryInput.trim()) return countries;
+
+        return countries.filter((country) => 'name' in country ? country.name === countryInput : country.names.common === countryInput)
+    }
+
     return (
         <div>
             <div className='form'>
@@ -36,12 +42,13 @@ export default function Countries({ }: Props): ReactElement {
                         type="text"
                         placeholder='Search in the country...'
                         className='search__input'
+                        onChange={(event: React.ChangeEvent<HTMLInputElement, HTMLInputElement>) => { setCountryInput(event.target.value); }}
                     />
                     <img src="img" alt="img" className='search__img' />
                 </form>
             </div>
             <div className='countries'>
-                {countries?.map(c => <CountryItem country={c} />)}
+                {countries?.map((c, index) => <CountryItem key={index} country={c} />)}
             </div>
 
         </div>
