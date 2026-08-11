@@ -1,4 +1,5 @@
 import type { CountryMock } from '../../../interfaces/countries'
+import './CountryItem.css';
 
 type CountryItemMockProps = {
     data: CountryMock;
@@ -6,7 +7,7 @@ type CountryItemMockProps = {
 
 export default function CountryItemMock({ data }: CountryItemMockProps) {
     return (
-        <div>
+        <div className='country-item'>
             <p key={data.code}>{data.name}</p>
         </div>
     )

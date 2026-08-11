@@ -3,6 +3,7 @@ import { API_ENDPOINTS } from '../../constants/api';
 import axios from 'axios';
 import type { Country } from '../../interfaces/countries';
 import CountryItem from './CountryItem/CountryItem';
+import './Countries.css';
 
 interface Props {
 
@@ -40,10 +41,18 @@ export default function Countries({ }: Props): ReactElement {
                 <form className='search__form'>
                     <input
                         type="text"
+                        name='country'
                         placeholder='Search in the country...'
                         className='search__input'
                         onChange={(event: React.ChangeEvent<HTMLInputElement, HTMLInputElement>) => { setCountryInput(event.target.value); }}
                     />
+                    <ul className='autocomplete'>
+                        <li className='authocomplete__item'></li>
+                        <li className='authocomplete__item'></li>
+                        <li className='authocomplete__item'></li>
+                        <li className='authocomplete__item'></li>
+                        <li className='authocomplete__item'></li>
+                    </ul>
                     <img src="img" alt="img" className='search__img' />
                 </form>
             </div>

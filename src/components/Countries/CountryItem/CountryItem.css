@@ -1,0 +1,12 @@
+.country-item {
+    height: 250px;
+    display: flex;
+    box-shadow: 1px 2px 6px #b2b2be;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.country-item:hover {
+    background: #f1f1f1;
+}

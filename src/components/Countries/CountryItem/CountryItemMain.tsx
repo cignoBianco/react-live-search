@@ -6,7 +6,7 @@ type CountryItemMainProps = {
 
 export default function CountryItemMain({ data }: CountryItemMainProps) {
     return (
-        <div>
+        <div className='country-item'>
             <p key={data.codes.alpha_2}>{data.names.common}</p>
         </div>
     )
