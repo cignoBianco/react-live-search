@@ -1,12 +1,13 @@
 .countries {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-gap: 15px;
+    margin: 2em;
 }
 
 .form {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     margin-top: 50px;
 }
 
@@ -31,6 +32,8 @@
     min-height: 240px;
     height: auto;
     overflow: auto;
+
+    display: none;
 }
 
 .autocomplete__item {
@@ -47,8 +50,12 @@
 
 .search__img {
     position: absolute;
-    left: 15px;
+    right: 15px;
     top: 15px;
+    width: 12px;
+    height: 12px;
+    background-image: url('../../assets/search.png');
+    background-size: cover;
 }
 
 .search__input {

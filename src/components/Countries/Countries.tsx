@@ -53,7 +53,7 @@ export default function Countries({ }: Props): ReactElement {
                         <li className='authocomplete__item'></li>
                         <li className='authocomplete__item'></li>
                     </ul>
-                    <img src="img" alt="img" className='search__img' />
+                    <span className='search__img'> </span>
                 </form>
             </div>
             <div className='countries'>
