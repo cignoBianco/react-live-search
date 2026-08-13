@@ -35,6 +35,10 @@ export default function Countries({ }: Props): ReactElement {
         return countries.filter((country) => 'name' in country ? country.name.toLowerCase().includes(countryInput.toLowerCase()) : country.names.common.toLowerCase().includes(countryInput.toLowerCase()))
     }
 
+    const itemClickHandler = (e: React.MouseEventHandler<HTMLLIElement>) => {
+        setCountryInput(e.target.textContent)
+    }
+
     return (
         <div>
             <div className='form'>
@@ -47,11 +51,12 @@ export default function Countries({ }: Props): ReactElement {
                         onChange={(event: React.ChangeEvent<HTMLInputElement, HTMLInputElement>) => { setCountryInput(event.target.value); }}
                     />
                     <ul className='autocomplete'>
-                        <li className='authocomplete__item'></li>
-                        <li className='authocomplete__item'></li>
-                        <li className='authocomplete__item'></li>
-                        <li className='authocomplete__item'></li>
-                        <li className='authocomplete__item'></li>
+                        {countryInput && filteredCountries()?.map((c) => <li
+                            className='autocomplete__item'
+                            onClick={itemClickHandler}
+                        >
+                            {'name' in c ? c.name : c.names.common}
+                        </li>)}
                     </ul>
                     <span className='search__img'> </span>
                 </form>
