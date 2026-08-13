@@ -12,6 +12,7 @@ interface Props {
 export default function Countries({ }: Props): ReactElement {
     const [countryInput, setCountryInput] = useState<string>('');
     const [countries, setCountries] = useState<Country[]>([]);
+    const [isOpen, setIsOpen] = useState(true);
     const getCountries = () => {
         axios.get(API_ENDPOINTS.COUNTRIES_ALL_MOCK, { headers: { 'Authorization': 'Bearer token' } })
             .then((response) => {
@@ -36,7 +37,12 @@ export default function Countries({ }: Props): ReactElement {
     }
 
     const itemClickHandler = (e: React.MouseEventHandler<HTMLLIElement>) => {
-        setCountryInput(e.target.textContent)
+        setCountryInput(e.target.textContent);
+        setIsOpen(false);
+    }
+
+    const inputClickHandler = (e: React.MouseEventHandler<HTMLLIElement>) => {
+        setIsOpen(true);
     }
 
     return (
@@ -46,12 +52,14 @@ export default function Countries({ }: Props): ReactElement {
                     <input
                         type="text"
                         name='country'
+                        value={countryInput}
                         placeholder='Search in the country...'
                         className='search__input'
                         onChange={(event: React.ChangeEvent<HTMLInputElement, HTMLInputElement>) => { setCountryInput(event.target.value); }}
+                        onClick={inputClickHandler}
                     />
                     <ul className='autocomplete'>
-                        {countryInput && filteredCountries()?.map((c) => <li
+                        {isOpen && countryInput && filteredCountries()?.map((c) => <li
                             className='autocomplete__item'
                             onClick={itemClickHandler}
                         >
