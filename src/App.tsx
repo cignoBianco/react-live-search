@@ -1,11 +1,12 @@
 import './App.css'
-import Countries from './components/Countries'
+import { RouterProvider } from 'react-router';
+import { router } from './router';
 
 function App() {
 
   return (
     <>
-      <Countries />
+      <RouterProvider router={router} />
     </>
   )
 }
