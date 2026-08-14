@@ -36,12 +36,12 @@ export default function Countries({ }: Props): ReactElement {
         return countries.filter((country) => 'name' in country ? country.name.toLowerCase().includes(countryInput.toLowerCase()) : country.names.common.toLowerCase().includes(countryInput.toLowerCase()))
     }
 
-    const itemClickHandler = (e: React.MouseEventHandler<HTMLLIElement>) => {
-        setCountryInput(e.target.textContent);
+    const itemClickHandler = (e: React.MouseEvent<HTMLLIElement>): void => {
+        setCountryInput(e.currentTarget.textContent);
         setIsOpen(false);
     }
 
-    const inputClickHandler = (e: React.MouseEventHandler<HTMLLIElement>) => {
+    const inputClickHandler = (e: React.MouseEvent<HTMLInputElement>): void => {
         setIsOpen(true);
     }
 
