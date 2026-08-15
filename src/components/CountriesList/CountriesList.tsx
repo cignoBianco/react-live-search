@@ -10,7 +10,12 @@ interface CountriesListProps {
 
 export const CountriesList = (props: CountriesListProps) => {
     const [countries, setCountries] = useState<Country[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [countriesPerPage, setCountriesPerPage] = useState<number>(10);
+
     const getCountries = () => {
+        setLoading(true);
         axios.get(API_ENDPOINTS.COUNTRIES_ALL_MOCK, { headers: { 'Authorization': 'Bearer token' } })
             .then((response) => {
                 const result = Array.isArray(response.data.countries) ? response.data.countries : [];
@@ -19,7 +24,14 @@ export const CountriesList = (props: CountriesListProps) => {
             .catch((error) => {
                 console.error("Failed to fetch countries", error);
                 setCountries([]);
-            });
+            })
+            .finally(() => setLoading(false));
+    }
+
+    const filteredCountries = (): Country[] => {
+        const startValue = currentPage * (countriesPerPage - 1);
+        const endValue = (currentPage - 1) * (countriesPerPage) + 1;
+        return countries.slice(startValue, endValue);
     }
 
     useEffect(() => {
