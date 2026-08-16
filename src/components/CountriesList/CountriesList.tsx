@@ -29,8 +29,8 @@ export const CountriesList = (props: CountriesListProps) => {
     }
 
     const filteredCountries = (): Country[] => {
-        const startValue = currentPage * (countriesPerPage - 1);
-        const endValue = (currentPage - 1) * (countriesPerPage) + 1;
+        const startValue = countriesPerPage * (currentPage - 1);
+        const endValue = startValue + countriesPerPage;
         return countries.slice(startValue, endValue);
     }
 
@@ -41,7 +41,7 @@ export const CountriesList = (props: CountriesListProps) => {
     return (
         <div>
             <ul>
-                {countries.map((c, index) => {
+                {filteredCountries().map((c, index) => {
                     const countryName = 'name' in c ? c.name : c.names.common;
                     const countryCode = 'code' in c ? c.code : c.codes.alpha_2;
 
