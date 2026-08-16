@@ -34,6 +34,11 @@ export const CountriesList = (props: CountriesListProps) => {
         return countries.slice(startValue, endValue);
     }
 
+    const paginationItems = () => {
+
+        return Math.ceil(countries.length / countriesPerPage);
+    }
+
     useEffect(() => {
         getCountries()
     }, [])
@@ -49,6 +54,14 @@ export const CountriesList = (props: CountriesListProps) => {
                         <Link to={`/countries/${countryName || countryCode}`}>{countryName}</Link>
                     </li>
                 })}
+            </ul>
+            <br />
+            <ul>
+                {
+                    Array.from({ length: paginationItems() }, (_, i) => <li onClick={() => { setCurrentPage(i + 1) }}>
+                        {i + 1}
+                    </li>)
+                }
             </ul>
         </div>
     )
