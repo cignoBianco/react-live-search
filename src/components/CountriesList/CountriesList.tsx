@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react'
 import { API_ENDPOINTS } from '../../constants/api';
 import type { Country } from '../../interfaces/countries';
 import { Link } from 'react-router';
+import Pagination from './Pagination/index';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 interface CountriesListProps {
 
@@ -35,7 +37,6 @@ export const CountriesList = (props: CountriesListProps) => {
     }
 
     const paginationItems = () => {
-
         return Math.ceil(countries.length / countriesPerPage);
     }
 
@@ -45,26 +46,33 @@ export const CountriesList = (props: CountriesListProps) => {
 
     if (loading) return 'loading...';
 
+    if (!countries.length) return 'no data =(';
+
     return (
         <div>
-            <ul>
+            <h1 className='text-primary'>Countries</h1>
+            <ul className='list-group mb-2'>
                 {filteredCountries().map((c, index) => {
                     const countryName = 'name' in c ? c.name : c.names.common;
                     const countryCode = 'code' in c ? c.code : c.codes.alpha_2;
 
-                    return <li key={index}>
+                    return <li key={index} className='list-group-item'>
                         <Link to={`/countries/${countryName || countryCode}`}>{countryName}</Link>
                     </li>
                 })}
             </ul>
-            <br />
-            <ul>
-                {
-                    Array.from({ length: paginationItems() }, (_, i) => <li onClick={() => { setCurrentPage(i + 1) }}>
-                        {i + 1}
-                    </li>)
-                }
-            </ul>
+            <Dropdown>
+                <Dropdown.Toggle className='m-2' size="sm" variant="secondary" id="dropdown-basic">
+                    {countriesPerPage} elements per page
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                    <Dropdown.Item onClick={() => setCountriesPerPage(10)} href="#/action-1">10</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setCountriesPerPage(20)} href="#/action-2">20</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setCountriesPerPage(50)} href="#/action-3">50</Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
+            <Pagination paginationLength={paginationItems()} clickHandler={(pageNumber: number) => setCurrentPage(pageNumber)} />
         </div>
     )
 }
