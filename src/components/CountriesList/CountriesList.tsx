@@ -43,6 +43,8 @@ export const CountriesList = (props: CountriesListProps) => {
         getCountries()
     }, [])
 
+    if (loading) return 'loading...';
+
     return (
         <div>
             <ul>
